@@ -2,7 +2,7 @@ import './BasicLayout.less';
 
 import React, { CSSProperties, useContext, useEffect } from 'react';
 import { BreadcrumbProps as AntdBreadcrumbProps } from 'antd/es/breadcrumb';
-import { Layout } from 'antd';
+import { Layout, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import warning from 'warning';
 import useMergeValue from 'use-merge-value';
@@ -214,6 +214,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     isChildrenLayout: propsIsChildrenLayout,
     menuDataRender,
     loading,
+    direction,
     ...rest
   } = props;
 
@@ -437,28 +438,30 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         }}
       >
         <div className={className}>
-          <Layout
-            style={{
-              minHeight: '100%',
-              ...style,
-            }}
-            hasSider
-          >
-            {siderMenuDom}
-            <Layout style={genLayoutStyle}>
-              {headerDom}
+          <ConfigProvider direction={direction}>
+            <Layout
+              style={{
+                minHeight: '100%',
+                ...style,
+              }}
+              hasSider
+            >
+              {siderMenuDom}
+              <Layout style={genLayoutStyle}>
+                {headerDom}
 
-              <WrapContent
-                isChildrenLayout={isChildrenLayout}
-                {...rest}
-                className={contentClassName}
-                style={contentStyle}
-              >
-                {loading ? <PageLoading /> : children}
-              </WrapContent>
-              {footerDom}
+                <WrapContent
+                  isChildrenLayout={isChildrenLayout}
+                  {...rest}
+                  className={contentClassName}
+                  style={contentStyle}
+                >
+                  {loading ? <PageLoading /> : children}
+                </WrapContent>
+                {footerDom}
+              </Layout>
             </Layout>
-          </Layout>
+          </ConfigProvider>
         </div>
       </RouteContext.Provider>
     </MenuCounter.Provider>

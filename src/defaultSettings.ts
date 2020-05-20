@@ -33,6 +33,7 @@ export interface Settings {
   iconfontUrl: string;
   primaryColor: string;
   colorWeak?: boolean;
+  direction: 'ltr' | 'rtl';
 }
 
 const defaultSettings: Settings = {
@@ -47,5 +48,6 @@ const defaultSettings: Settings = {
   title: 'Ant Design Pro',
   iconfontUrl: '',
   primaryColor: '#1890ff',
+  direction: 'rtl',
 };
 export default defaultSettings;
